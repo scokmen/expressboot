@@ -62,3 +62,9 @@ typings/
 
 # Ignore built ts files
 dist/**/*
+
+# Webstorm project folder
+.idea/
+
+# Yarn.lock
+yarn.lock
