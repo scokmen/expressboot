@@ -64,7 +64,7 @@ typings/
 dist/**/*
 
 # Webstorm project folder
-.idea/
+.idea
 
 # Yarn.lock
 yarn.lock
