@@ -44,7 +44,7 @@ describe("get specs", () => {
             }
         };
 
-        expect(fn).to.throws(`An error occurred annotating Mock::Handler as 'get' handler. Error: Path cannot be empty`);
+        expect(fn).to.throws(`An error occurred annotating Mock.Handler(...) as 'get' handler. Error: Path cannot be empty`);
     });
 
     it("should throw error when method annotated more than once", () => {
@@ -61,6 +61,6 @@ describe("get specs", () => {
             }
         };
 
-        expect(fn).to.throws(`An error occurred annotating Mock::Handler as 'get' handler. Error: Class Mock::Handler already annotated as handler`);
+        expect(fn).to.throws(`An error occurred annotating Mock.Handler(...) as 'get' handler. Error: Class Mock.Handler(...) already annotated as handler`);
     });
 });

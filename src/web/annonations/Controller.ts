@@ -10,7 +10,7 @@ import { COMPONENT_NAMES } from "./constants/ComponentNames";
 
 /**
  * @function
- * Annotate target class as controller
+ * Annotate target class as a http controller
  * @param {string} path
  * @returns {IControllerDecorator}
  * @throws {Error}

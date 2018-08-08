@@ -3,36 +3,39 @@ import { IHandlerDecorator } from "../interfaces/IHandlerDecorator";
 import { Class } from "../../../types/Class";
 import { METADATA_KEYS } from "../metadata/MetadataKeys";
 import * as check from "check-types";
+import { HttpMethod } from "../../common/HttpMethod";
 
 /**
  * @function
- * Annotate target httpMethod as handler
- * @param {string} httpMethod
+ * Annotate target method as a http handler
+ * @param {HttpMethod} method
  * @param {string} path
  * @returns {IHandlerDecorator}
  * @throws {Error}
  */
-export function Handler(httpMethod: string, path: string): IHandlerDecorator {
+export function Handler(method: HttpMethod, path: string): IHandlerDecorator {
 
     return function (target: Class, methodName: string): void {
 
-        const actionName = `${target.constructor.name}::${methodName}`;
+        const methodSignature = `${target.constructor.name}.${methodName}(...)`;
 
         if (check.not.string(path)) {
-            throw new Error(`An error occurred annotating ${actionName} as '${httpMethod}' handler. Error: Path cannot be empty`);
+            throw new Error(`An error occurred annotating ${methodSignature} as '${method}' handler. Error: Path cannot be empty`);
         }
 
-        const metadata: HandlerMetadata = { path, httpMethod, target, methodName };
         let handlerMetadataList: HandlerMetadata[] = [];
+        const metadata: HandlerMetadata = { path, httpMethod: method, target, methodName };
+
         if (Reflect.hasOwnMetadata(METADATA_KEYS.HANDLER, target.constructor)) {
             handlerMetadataList = Reflect.getOwnMetadata(METADATA_KEYS.HANDLER, target.constructor);
             const previouslyHandlerMetadata = handlerMetadataList.find((handlerMetadata) => { return handlerMetadata.methodName === methodName; });
             if (previouslyHandlerMetadata) {
-                throw new Error(`An error occurred annotating ${actionName} as '${httpMethod}' handler. Error: Class ${actionName} already annotated as handler`);
+                throw new Error(`An error occurred annotating ${methodSignature} as '${method}' handler. Error: Class ${methodSignature} already annotated as handler`);
             }
         } else {
             Reflect.defineMetadata(METADATA_KEYS.HANDLER, handlerMetadataList, target.constructor);
         }
+
         handlerMetadataList.push(metadata);
     };
 }

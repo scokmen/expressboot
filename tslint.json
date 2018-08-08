@@ -1,6 +1,8 @@
 {
     "rules": {
         "class-name": true,
+        "no-unused-expression": true,
+        "no-unused-variable": true,
         "comment-format": [
             true,
             "check-space"
@@ -33,6 +35,11 @@
             "check-module",
             "check-separator",
             "check-type"
+        ],
+        "typedef": [
+            true,
+            "call-signature",
+            "property-declaration"
         ],
         "typedef-whitespace": [
             true,

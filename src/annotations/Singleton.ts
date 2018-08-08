@@ -4,14 +4,14 @@ import { Injectable } from "./Injectable";
 
 /**
  * @function
- * Annotate given class as singleton component
+ * Annotate given class as an injectable singleton component
  * @param {Class} target
  * @returns {void}
  * @throws {Error}
  */
-export function Singleton(target: Class): void {
+export function Singleton<T>(target: Class<T>): void {
     try {
-        Injectable(target);
+        Injectable<T>(target);
     } catch (err) {
         throw new Error(`An error occurred annotating ${target.name} as @Singleton. Error: ${(<Error>err).message}`);
     }

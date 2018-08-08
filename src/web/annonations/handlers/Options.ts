@@ -1,13 +1,13 @@
-import { HTTP_METHODS } from "./HttpMethods";
 import { Handler } from "./Handler";
 import { IHandlerDecorator } from "../interfaces/IHandlerDecorator";
+import { HttpMethod } from "../../common/HttpMethod";
 
 /**
  * @function
- * Annotate target httpMethod as options handler
+ * Annotate target method as http options handler
  * @param {string} path
  * @returns {IHandlerDecorator}
  */
 export function Options(path: string): IHandlerDecorator {
-    return Handler(HTTP_METHODS.OPTIONS, path);
+    return Handler(HttpMethod.Options, path);
 }

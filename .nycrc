@@ -9,7 +9,10 @@
         ".ts"
     ],
     "exclude": [
-        "**/*.d.ts"
+        "**/*.d.ts",
+        "examples",
+        "dist",
+        "coverage"
     ],
     "reporter": [
         "html"

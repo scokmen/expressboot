@@ -1,7 +1,7 @@
 /**
  * @interface
- * Controller decorator interface
+ * Handler decorator interface
  */
 export interface IHandlerDecorator {
-    (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): void;
+    (target: Object, methodName: string, descriptor: TypedPropertyDescriptor<any>): void;
 }

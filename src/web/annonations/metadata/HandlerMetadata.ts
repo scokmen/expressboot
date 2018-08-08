@@ -1,9 +1,12 @@
+import { HttpMethod } from "../../common/HttpMethod";
+
 /**
+ * @interface
  * Handler metadata
  */
 export interface HandlerMetadata {
     path: string;
     target: Object;
-    httpMethod: string;
+    httpMethod: HttpMethod;
     methodName: string;
 }

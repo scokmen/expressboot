@@ -1,13 +1,13 @@
-import { HTTP_METHODS } from "./HttpMethods";
 import { Handler } from "./Handler";
 import { IHandlerDecorator } from "../interfaces/IHandlerDecorator";
+import { HttpMethod } from "../../common/HttpMethod";
 
 /**
  * @function
- * Annotate target httpMethod as delete handler
+ * Annotate target method as http delete handler
  * @param {string} path
  * @returns {IHandlerDecorator}
  */
 export function Delete(path: string): IHandlerDecorator {
-    return Handler(HTTP_METHODS.DELETE, path);
+    return Handler(HttpMethod.Delete, path);
 }

@@ -4,14 +4,14 @@ import { Injectable } from "./Injectable";
 
 /**
  * @function
- * Annotate given class as component
+ * Annotate given class as an injectable component
  * @param {Class} target
  * @returns {void}
  * @throws {Error}
  */
-export function Component(target: Class): void {
+export function Component<T>(target: Class<T>): void {
     try {
-        Injectable(target);
+        Injectable<T>(target);
     } catch (err) {
         throw new Error(`An error occurred annotating ${target.name} as @Component. Error: ${(<Error>err).message}`);
     }

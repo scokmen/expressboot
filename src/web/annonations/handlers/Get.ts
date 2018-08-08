@@ -1,13 +1,13 @@
-import { IHandlerDecorator } from "../interfaces/IHandlerDecorator";
-import { HTTP_METHODS } from "./HttpMethods";
 import { Handler } from "./Handler";
+import { IHandlerDecorator } from "../interfaces/IHandlerDecorator";
+import { HttpMethod } from "../../common/HttpMethod";
 
 /**
  * @function
- * Annotate target method as get handler
+ * Annotate target method as http get handler
  * @param {string} path
  * @returns {IHandlerDecorator}
  */
 export function Get(path: string): IHandlerDecorator {
-    return Handler(HTTP_METHODS.GET, path);
+    return Handler(HttpMethod.Get, path);
 }

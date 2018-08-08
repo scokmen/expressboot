@@ -5,11 +5,10 @@ import { METADATA_KEY } from "inversify";
 import { container } from "inversify-global-container";
 import sinon from "sinon";
 import faker from "faker";
-import { Controller } from "../../../../src/ExpressBoot";
-import { METADATA_KEYS } from "../../../../src/web/annonations/metadata/MetadataKeys";
-import { ControllerMetadata } from "../../../../src/web/annonations/metadata/ControllerMetadata";
-import { BaseController } from "../../../../src/web/controllers/BaseController";
-import { COMPONENT_NAMES } from "../../../../src/web/annonations/constants/ComponentNames";
+import { Controller, BaseController } from "../../../src/ExpressBoot";
+import { METADATA_KEYS } from "../../../src/web/annonations/metadata/MetadataKeys";
+import { ControllerMetadata } from "../../../src/web/annonations/metadata/ControllerMetadata";
+import { COMPONENT_NAMES } from "../../../src/web/annonations/constants/ComponentNames";
 
 describe("controller specs", () => {
 
