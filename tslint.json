@@ -1,4 +1,9 @@
 {
+    "linterOptions": {
+        "exclude": [
+            "./examples/**/*.ts"
+        ]
+    },
     "rules": {
         "class-name": true,
         "no-unused-expression": true,

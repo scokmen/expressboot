@@ -12,7 +12,7 @@
         "start": "npm run build && node ./dist/examples/product-api/Server.js",
         "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json",
         "build": "./node_modules/.bin/tsc",
-        "test": "./node_modules/.bin/mocha -r ts-node/register ./test/**/*.[sS]pec.ts",
+        "test": "./node_modules/.bin/mocha -r ts-node/register ./test/**/**/*.[sS]pec.ts",
         "coverage": "./node_modules/.bin/nyc npm test"
     },
     "dependencies": {
