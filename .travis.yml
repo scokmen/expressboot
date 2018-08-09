@@ -5,3 +5,7 @@ script:
     - yarn test
     - yarn coverage
     - yarn lint
+after_script:
+    - yarn coveralls
+    - rm -rf ./dist
+    - rm -rf ./coverage

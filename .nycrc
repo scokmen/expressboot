@@ -1,8 +1,5 @@
 {
     "all": true,
-    "check-coverage": true,
-    "lines": 80,
-    "branches": 70,
     "extension": [
         ".ts"
     ],
@@ -13,6 +10,7 @@
         "coverage"
     ],
     "reporter": [
+        "lcov",
         "html"
     ]
 }
