@@ -2,10 +2,11 @@ import {
     BaseController,
     Controller,
     FromHeader,
-    FromRoute,
-    FromQuery,
     Get,
-    Server
+    Server,
+    IHttpResult,
+    StringResult,
+    JsonResult
 } from "../../src/ExpressBoot";
 
 @Controller("products")
@@ -15,13 +16,14 @@ class ProductController extends BaseController {
         super();
     }
 
-    @Get("/:id")
-    public getProduct(@FromRoute("id") id: string, @FromQuery("sort") sort: string, @FromHeader("user-agent") userAgent: string): any {
-        return {
-            "id": id,
-            "sort": sort,
-            "user-agent": userAgent
-        };
+    @Get("/demo1")
+    public getJson(@FromHeader("user-agent") userAgent: string): IHttpResult {
+        return new JsonResult(201, {userAgent});
+    }
+
+    @Get("/demo2")
+    public getString(@FromHeader("user-agent") userAgent: string): IHttpResult {
+        return new StringResult(201, userAgent);
     }
 }
 

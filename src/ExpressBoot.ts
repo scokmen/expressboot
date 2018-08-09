@@ -14,3 +14,8 @@ export { FromQuery } from "./web/annonations/parameters/FromQuery";
 export { FromRoute } from "./web/annonations/parameters/FromRoute";
 export { FromHeader } from "./web/annonations/parameters/FromHeader";
 export { FromBody } from "./web/annonations/parameters/FromBody";
+export { IHttpResult } from "./web/results/interfaces/IHttpResult";
+export { JsonResult } from "./web/results/JsonResult";
+export { StringResult } from "./web/results/StringResult";
+export { StatusResult } from "./web/results/StatusResult";
+export { ContentResult } from "./web/results/ContentResult";

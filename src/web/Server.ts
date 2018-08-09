@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express, { Express } from "express";
 import compression from "compression";
 import bodyParser from "body-parser";
+import helmet from "helmet";
 import { interfaces } from "inversify";
 import { container as globalContainer } from "inversify-global-container";
 import { BaseController } from "./controllers/BaseController";
@@ -14,6 +15,8 @@ import { ParameterMetadata } from "./annonations/metadata/ParameterMetadata";
 import { IParameterResolverFactory } from "./factories/interfaces/IParameterResolverFactory";
 import { ParameterResolverFactory } from "./factories/ParameterResolverFactory";
 import { IParameterResolver } from "./factories/interfaces/IParameterResolver";
+import * as check from "check-types";
+import { IHttpResult } from "./results/interfaces/IHttpResult";
 
 /**
  * @class
@@ -74,6 +77,7 @@ export abstract class Server {
     private createApplication(): Express {
         const application = express();
         application.set("port", this.getPort());
+        application.use(helmet());
         application.use(compression());
         application.use(bodyParser.json());
         application.use(bodyParser.urlencoded({extended: true}));
@@ -107,7 +111,11 @@ export abstract class Server {
         return function (request: express.Request, response: express.Response): void {
             const handlerArguments: any[] = self.getHandlerArguments(request, parameterMetadataList);
             const handlerResult: any = (controller as any)[handlerMetadata.methodName](...handlerArguments);
-            response.send(handlerResult);
+            if (self.isHttpResult(handlerResult)) {
+                handlerResult.send(response);
+            } else {
+                response.send(handlerResult);
+            }
         };
     }
 
@@ -117,5 +125,9 @@ export abstract class Server {
             const parameterResolver: IParameterResolver = parameterResolverFactory.create(parameterMetadata.source);
             return parameterResolver.resolve(request, parameterMetadata.args);
         });
+    }
+
+    private isHttpResult(result: any): result is IHttpResult {
+        return check.object(result) && check.function(result.send);
     }
 }
