@@ -17,6 +17,9 @@ import { ParameterResolverFactory } from "./factories/ParameterResolverFactory";
 import { IParameterResolver } from "./factories/interfaces/IParameterResolver";
 import * as check from "check-types";
 import { IHttpResult } from "./results/interfaces/IHttpResult";
+import { StringResult } from "./results/StringResult";
+import { HttpStatusCode } from "./common/HttpStatusCode";
+import { JsonResult } from "./results/JsonResult";
 
 /**
  * @class
@@ -100,28 +103,24 @@ export abstract class Server {
     }
 
     private registerHandler(controllerMetadata: ControllerMetadata, handlerMetadata: HandlerMetadata, parameterMetadatas: ParameterMetadata[]): void {
-        const controller = this.container.getNamed<BaseController>(COMPONENT_NAMES.CONTROLLER, controllerMetadata.target.name);
         const handlerPath = `/${controllerMetadata.path}${handlerMetadata.path}`;
-        const handler = this.getHandler(controller, handlerMetadata, parameterMetadatas);
+        const handler = this.getHandler(controllerMetadata, handlerMetadata, parameterMetadatas);
         (this.application as any)[handlerMetadata.httpMethod](handlerPath, handler);
     }
 
-    private getHandler(controller: BaseController, handlerMetadata: HandlerMetadata, parameterMetadataList: ParameterMetadata[]): express.RequestHandler {
+    private getHandler(controllerMetadata: ControllerMetadata, handlerMetadata: HandlerMetadata, parameterMetadataList: ParameterMetadata[]): express.RequestHandler {
         const self = this;
         return function (request: express.Request, response: express.Response): void {
+            const controller: BaseController = self.container.getNamed<BaseController>(COMPONENT_NAMES.CONTROLLER, controllerMetadata.target.name);
             const handlerArguments: any[] = self.getHandlerArguments(request, parameterMetadataList);
             const handlerResult: any = (controller as any)[handlerMetadata.methodName](...handlerArguments);
-            if (self.isHttpResult(handlerResult)) {
-                handlerResult.send(response);
-            } else {
-                response.send(handlerResult);
-            }
+            self.handleResult(response, handlerResult);
         };
     }
 
-    private getHandlerArguments(request: express.Request, parameterMetadatas: ParameterMetadata[]): any[] {
+    private getHandlerArguments(request: express.Request, parameterMetadataList: ParameterMetadata[]): any[] {
         const parameterResolverFactory: IParameterResolverFactory = new ParameterResolverFactory();
-        return parameterMetadatas.map((parameterMetadata) => {
+        return parameterMetadataList.map((parameterMetadata) => {
             const parameterResolver: IParameterResolver = parameterResolverFactory.create(parameterMetadata.source);
             return parameterResolver.resolve(request, parameterMetadata.args);
         });
@@ -129,5 +128,19 @@ export abstract class Server {
 
     private isHttpResult(result: any): result is IHttpResult {
         return check.object(result) && check.function(result.send);
+    }
+
+    private handleResult(response: express.Response, result: any): void {
+        if (!response.headersSent) {
+            if (result instanceof Promise) {
+                result.then((data: any) => { this.handleResult(response, data); });
+            } else if (this.isHttpResult(result)) {
+                result.send(response);
+            } else if (check.primitive(result)) {
+                new StringResult(HttpStatusCode.Ok, String(result)).send(response);
+            } else if (check.array(result) || check.object(result)) {
+                new JsonResult(HttpStatusCode.Ok, result).send(response);
+            }
+        }
     }
 }
