@@ -3,14 +3,14 @@ import { afterEach, describe, it } from "mocha";
 import { expect } from "chai";
 import sinon from "sinon";
 import faker from "faker";
-import { IParameterResolver } from "../../../src/web/factories/interfaces/IParameterResolver";
-import { QueryParameterResolver } from "../../../src/web/factories/QueryParameterResolver";
-import { IParameterResolverFactory } from "../../../src/web/factories/interfaces/IParameterResolverFactory";
-import { ParameterResolverFactory } from "../../../src/web/factories/ParameterResolverFactory";
+import { IParameterResolver } from "../../../src/web/resolvers/interfaces/IParameterResolver";
+import { QueryParameterResolver } from "../../../src/web/resolvers/QueryParameterResolver";
+import { IParameterResolverFactory } from "../../../src/web/resolvers/interfaces/IParameterResolverFactory";
+import { ParameterResolverFactory } from "../../../src/web/resolvers/ParameterResolverFactory";
 import { ParameterSource } from "../../../src/web/common/ParameterSource";
-import { BodyParameterResolver } from "../../../src/web/factories/BodyParameterResolver";
-import { HeaderParameterResolver } from "../../../src/web/factories/HeaderParameterResolver";
-import { RouteParameterResolver } from "../../../src/web/factories/RouteParameterResolver";
+import { BodyParameterResolver } from "../../../src/web/resolvers/BodyParameterResolver";
+import { HeaderParameterResolver } from "../../../src/web/resolvers/HeaderParameterResolver";
+import { RouteParameterResolver } from "../../../src/web/resolvers/RouteParameterResolver";
 
 describe("parameter resolver factory specs", () => {
 

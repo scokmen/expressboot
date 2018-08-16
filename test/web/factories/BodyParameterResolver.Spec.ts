@@ -2,8 +2,8 @@ import "reflect-metadata";
 import { describe, it, afterEach } from "mocha";
 import { expect } from "chai";
 import sinon from "sinon";
-import { IParameterResolver } from "../../../src/web/factories/interfaces/IParameterResolver";
-import { BodyParameterResolver } from "../../../src/web/factories/BodyParameterResolver";
+import { IParameterResolver } from "../../../src/web/resolvers/interfaces/IParameterResolver";
+import { BodyParameterResolver } from "../../../src/web/resolvers/BodyParameterResolver";
 
 describe("body parameter resolver specs", () => {
 

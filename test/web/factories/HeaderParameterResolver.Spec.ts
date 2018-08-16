@@ -3,8 +3,8 @@ import { describe, it, afterEach } from "mocha";
 import { expect } from "chai";
 import sinon from "sinon";
 import faker from "faker";
-import { IParameterResolver } from "../../../src/web/factories/interfaces/IParameterResolver";
-import { HeaderParameterResolver } from "../../../src/web/factories/HeaderParameterResolver";
+import { IParameterResolver } from "../../../src/web/resolvers/interfaces/IParameterResolver";
+import { HeaderParameterResolver } from "../../../src/web/resolvers/HeaderParameterResolver";
 
 describe("header parameter resolver specs", () => {
 

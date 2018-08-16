@@ -12,9 +12,9 @@ import { ControllerMetadata } from "./annonations/metadata/ControllerMetadata";
 import { HandlerMetadata } from "./annonations/metadata/HandlerMetadata";
 import { ParameterMetadataSet } from "./annonations/metadata/ParameterMetadataSet";
 import { ParameterMetadata } from "./annonations/metadata/ParameterMetadata";
-import { IParameterResolverFactory } from "./factories/interfaces/IParameterResolverFactory";
-import { ParameterResolverFactory } from "./factories/ParameterResolverFactory";
-import { IParameterResolver } from "./factories/interfaces/IParameterResolver";
+import { IParameterResolverFactory } from "./resolvers/interfaces/IParameterResolverFactory";
+import { ParameterResolverFactory } from "./resolvers/ParameterResolverFactory";
+import { IParameterResolver } from "./resolvers/interfaces/IParameterResolver";
 import * as check from "check-types";
 import { IHttpResult } from "./results/interfaces/IHttpResult";
 import { StringResult } from "./results/StringResult";
@@ -112,6 +112,7 @@ export abstract class Server {
         const self = this;
         return function (request: express.Request, response: express.Response): void {
             const controller: BaseController = self.container.getNamed<BaseController>(COMPONENT_NAMES.CONTROLLER, controllerMetadata.target.name);
+            self.container.
             const handlerArguments: any[] = self.getHandlerArguments(request, parameterMetadataList);
             const handlerResult: any = (controller as any)[handlerMetadata.methodName](...handlerArguments);
             self.handleResult(response, handlerResult);
