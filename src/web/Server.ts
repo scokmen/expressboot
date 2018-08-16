@@ -112,7 +112,6 @@ export abstract class Server {
         const self = this;
         return function (request: express.Request, response: express.Response): void {
             const controller: BaseController = self.container.getNamed<BaseController>(COMPONENT_NAMES.CONTROLLER, controllerMetadata.target.name);
-            self.container.
             const handlerArguments: any[] = self.getHandlerArguments(request, parameterMetadataList);
             const handlerResult: any = (controller as any)[handlerMetadata.methodName](...handlerArguments);
             self.handleResult(response, handlerResult);
