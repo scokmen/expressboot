@@ -1,7 +1,7 @@
 import { container } from "inversify-global-container";
 import { IControllerDecorator } from "./interfaces/IControllerDecorator";
 import { Class } from "../../types/Class";
-import { Injectable } from "../../annotations/Injectable";
+import { Injectable } from "../../stereotype/Injectable";
 import { METADATA_KEYS } from "./metadata/MetadataKeys";
 import { ControllerMetadata } from "./metadata/ControllerMetadata";
 import * as check from "check-types";

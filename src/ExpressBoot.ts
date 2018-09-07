@@ -1,5 +1,5 @@
-export { Singleton } from "./annotations/Singleton";
-export { Component } from "./annotations/Component";
+export { Singleton } from "./stereotype/Singleton";
+export { Component } from "./stereotype/Component";
 export { Controller } from "./web/annonations/Controller";
 export { Get } from "./web/annonations/handlers/Get";
 export { Post } from "./web/annonations/handlers/Post";
